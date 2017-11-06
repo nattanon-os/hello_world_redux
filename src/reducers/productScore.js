@@ -1,16 +1,6 @@
 import {PRODUCT} from '../actions/type'
 let productScore = {
-    datas: [
-        {
-            id: 1,
-            name: 'facebook',
-            score: 1
-        }, {
-            id: 2,
-            name: 'google',
-            score: 1
-        }
-    ]
+    datas: []
 }
 
 export function reducers(state = productScore, action) {
@@ -44,6 +34,9 @@ export function reducers(state = productScore, action) {
                     }
                     return data;
                 });
+            return newState;
+        case PRODUCT.GET_ALL:
+            newState.datas = action.data
             return newState;
         default:
             return newState;

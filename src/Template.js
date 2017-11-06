@@ -5,6 +5,9 @@ import {connect} from 'react-redux';
 import {plusScore, minusScore} from './actions/productScore'
 
 class Template extends Component {
+    componentDidMount(){
+        this.props.getAll()
+    }
     render() {
         const {data} = this.props;
         return (
