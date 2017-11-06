@@ -3,59 +3,10 @@ import logo from './logo.svg';
 import './App.css';
 import 'semantic-ui-css/semantic.min.css';
 import Template from "./Template";
+/////////////////////////////////////////////
+import {connect} from 'react-redux';
 
 class App extends Component {
-  state = {
-    datas: [
-      {
-        id: 1,
-        name: 'facebook',
-        score: 1
-      }, {
-        id: 2,
-        name: 'google',
-        score: 1
-      }
-    ]
-  }
-  plusScore = (id) => {
-    console.log(id, 'plusScore')
-    this.setState({
-      datas: this
-        .state
-        .datas
-        .map((data) => {
-          if (data.id === id) {
-            return {
-              id: data.id,
-              name: data.name,
-              score: data.score + 1
-            };
-          }
-          return data;
-        })
-    })
-  }
-
-  minusScore = (id) => {
-    console.log(id, 'minusScore')
-    this.setState({
-      datas: this
-        .state
-        .datas
-        .map((data) => {
-          if (data.id === id) {
-            return {
-              id: data.id,
-              name: data.name,
-              score: data.score - 1
-            };
-          }
-          return data;
-        })
-    })
-  }
-
   render() {
     return (
       <div className="App">
@@ -63,16 +14,20 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo"/>
         </header>
         <Template
-          data={this.state.datas[0]}
-          plusScore={this.plusScore}
-          minusScore={this.minusScore}/>
+          data={this.props.productScore.datas[0]}
+          plusScore={this.props.plusScore}
+          minusScore={this.props.minusScore}/>
         <Template
-          data={this.state.datas[1]}
-          plusScore={this.plusScore}
-          minusScore={this.minusScore}/>
+          data={this.props.productScore.datas[1]}
+          plusScore={this.props.plusScore}
+          minusScore={this.props.minusScore}/>
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {productScore: state.productScore}
+}
+
+export default connect(mapStateToProps, undefined)(App);

@@ -1,8 +1,12 @@
 import React, {Component} from 'react';
 import {Button, Card} from 'semantic-ui-react'
+/////////////////////////////////////////////
+import {connect} from 'react-redux';
+import {plusScore, minusScore} from './actions/productScore'
+
 class Template extends Component {
     render() {
-        const {data, plusScore, minusScore} = this.props;
+        const {data} = this.props;
         return (
             <div>
                 <Card>
@@ -16,8 +20,8 @@ class Template extends Component {
                     </Card.Content>
                     <Card.Content extra>
                         <div className='ui two buttons'>
-                            <Button basic color='green' onClick={() => plusScore(data.id)}>+</Button>
-                            <Button basic color='red' onClick={() => minusScore(data.id)}>-</Button>
+                            <Button basic color='green' onClick={() => this.props.plusScore(data.id)}>+</Button>
+                            <Button basic color='red' onClick={() => this.props.minusScore(data.id)}>-</Button>
                         </div>
                     </Card.Content>
                 </Card>
@@ -25,5 +29,19 @@ class Template extends Component {
         );
     }
 }
+const mapDispatchToProps = (dispatch, state) => {
+    return {
+        plusScore: (id) => {
+            dispatch(plusScore(id))
+        },
+        minusScore: (id) => {
+            dispatch(minusScore(id));
+        }
+    }
+}
 
-export default Template;
+const mapStateToProps = (state) => {
+    return {productScore: state.productScore}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Template);
